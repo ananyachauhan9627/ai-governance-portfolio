@@ -1,0 +1,9 @@
+# Dependencies and build output (GitHub Actions rebuilds the site)
+node_modules/
+.astro/
+site/dist/
+
+# Private files: keep these off the public repo
+*.pdf
+Ananya Chauhan - Consultant Pic.jpg
+design-options/

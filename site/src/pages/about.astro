@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site.js';
+const jobs = [
+  { org: 'KPMG', role: 'Senior Consultant, Risk & Cyber Advisory', when: '2022–2024', where: 'Bengaluru',
+    points: [
+      'Assessed more than 200 third-party vendors across financial services, technology and manufacturing clients, and drove remediation against ISO/IEC 27001 and NIST 800-53.',
+      'Designed TPRM frameworks (vendor tiering, due diligence questionnaires, continuous monitoring) adopted as standard practice across engagements.',
+      'Co-led the enhancement and rollout of a vendor assessment tool now used by over 100 KPMG clients globally.',
+      'Led SOC 2 third-party assurance and continuous monitoring for a venture capital client; executed ITGC tests of design and effectiveness.',
+      'Rated distinctive, in the top 5% of consultants.',
+    ] },
+  { org: 'EY', role: 'Technology Consulting Intern', when: '2021', where: 'Gurugram',
+    points: ['Implemented a privacy information management system for a verification services client, extending ISO/IEC 27001 and 27002 with ISO/IEC 27701 privacy controls and benchmarking against GDPR.'] },
+  { org: 'Infosys', role: 'Senior Operations Executive', when: '2017–2020', where: 'Pune',
+    points: ['Managed cross-functional delivery and escalations with onsite and third-party teams for an Australian telecom client; redesigned task allocation to double per-analyst throughput.'] },
+];
+---
+<Base title="About" description="Experience, certifications and education of Ananya Chauhan, GRC and third-party risk professional." current="about">
+  <section class="intro">
+    <div>
+      <img class="portrait" src="/ananya-chauhan.jpg" alt="Ananya Chauhan" width="260" height="260">
+      <h1>Third-party risk, now for AI.</h1>
+    </div>
+    <div class="lede">
+      <p>I’m a GRC professional with four and a half years across risk advisory and technology operations, most recently more than two years in third-party risk at KPMG. I’m extending that practice to AI governance: assessing AI vendors, classifying systems under the EU AI Act, and mapping how existing security programs carry over.</p>
+      <p>I’m looking for roles in third-party risk, IT risk and compliance, and AI governance, in the Bay Area or remote.</p>
+      <p class="links"><a href="mailto:ananyachauhan.9627@gmail.com">Email me</a><a href="https://www.linkedin.com/in/ananyachauhan-grc">LinkedIn</a><a href={site.resume || "#resume-link-pending"} target={site.resume ? "_blank" : undefined} rel="noopener">Résumé</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="section-label">Experience</h2>
+    <ol class="jobs">
+      {jobs.map((j) => (
+        <li>
+          <div class="when">{j.when}<br>{j.where}</div>
+          <div>
+            <h3>{j.org}</h3>
+            <p class="role">{j.role}</p>
+            <ul>{j.points.map((pt) => <li>{pt}</li>)}</ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="block">
+    <h2 class="section-label">Education</h2>
+    <dl>
+      <dt>San Francisco State University</dt><dd>Graduate Certificate in Ethical Artificial Intelligence, 2025 to present. AI risk management, responsible AI, EU AI Act, NIST AI RMF.</dd>
+      <dt>Symbiosis Centre for Information Technology</dt><dd>MBA, Information Security and Business Management, 2022</dd>
+      <dt>Banasthali Vidyapith</dt><dd>B.Sc. Mathematics, minors in Computer Science and Statistics, 2017</dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2 class="section-label">Certifications</h2>
+    <dl>
+      <dt>OneTrust</dt><dd>Certified Privacy Professional; Incident Management Expert; TPRM Expert</dd>
+      <dt>ISC2</dt><dd>CISSP, in progress</dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2 class="section-label">Frameworks and tools</h2>
+    <dl>
+      <dt>Security and privacy</dt><dd>ISO/IEC 27001, 27002, 27701; NIST CSF; NIST 800-53; SOC 1 and SOC 2; PCI DSS; GDPR; CCPA</dd>
+      <dt>AI governance</dt><dd>EU AI Act; NIST AI RMF; ISO/IEC 42001</dd>
+      <dt>Platforms</dt><dd>ServiceNow GRC; OneTrust; Microsoft Sentinel; Power BI</dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <h2 class="section-label">Recognition</h2>
+    <dl>
+      <dt>KPMG, 2023</dt><dd>Excellence in client service</dd>
+      <dt>KPMG, 2022</dt><dd>Exceptional performance on a TPRM engagement</dd>
+      <dt>Infosys, 2019</dt><dd>Value addition to client project delivery</dd>
+    </dl>
+  </section>
+</Base>
+
+<style>
+  .intro{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;padding:64px 0 56px}
+  .portrait{display:block;width:260px;max-width:100%;height:auto;aspect-ratio:1;object-fit:cover;margin-bottom:28px;filter:saturate(.85)}
+  h1{font:500 clamp(40px,5.5vw,68px)/1.02 var(--serif);letter-spacing:-.02em}
+  .lede p{font-size:20px;line-height:1.55;max-width:52ch}
+  .lede p + p{margin-top:16px;color:var(--grey);font-size:18px}
+  .links a{font:700 16px var(--sans);color:var(--ink);margin-right:20px;text-underline-offset:5px}
+  .block{display:grid;grid-template-columns:1fr 2.3fr;gap:40px;padding:40px 0;border-top:1px solid var(--rule)}
+  .jobs{list-style:none;padding:0}
+  .jobs > li{display:grid;grid-template-columns:7rem 1fr;gap:24px;padding-bottom:28px}
+  .jobs > li + li{padding-top:28px;border-top:1px solid var(--rule)}
+  .when{font:400 15px/1.5 var(--sans);color:var(--grey)}
+  h3{font:500 26px/1.2 var(--serif)}
+  .role{font:600 16px var(--sans);color:var(--grey);margin-top:2px}
+  .jobs ul{margin-top:12px;padding-left:1.1em;max-width:64ch}
+  .jobs ul li + li{margin-top:6px}
+  dl{display:grid;grid-template-columns:minmax(10rem,1fr) 2fr;gap:14px 24px;font:400 16px/1.55 var(--sans)}
+  dt{font-weight:700}
+  dd{color:var(--grey);margin:0}
+  @media (max-width:820px){
+    .intro,.block{grid-template-columns:1fr;gap:16px}
+    .portrait{width:160px;margin-bottom:18px}
+    .jobs > li{grid-template-columns:1fr;gap:6px}
+    dl{grid-template-columns:1fr;gap:2px}
+    dd{margin-bottom:12px}
+  }
+</style>

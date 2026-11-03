@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import LinkedInIcon from '../components/LinkedInIcon.astro';
+import { site } from '../lib/site.js';
+const { title, description = 'Ananya Chauhan: AI governance and third-party risk.', current = '' } = Astro.props;
+const fullTitle = title ? `${title} | Ananya Chauhan` : 'Ananya Chauhan | AI governance and third-party risk';
+const resumeHref = site.resume || '#resume-link-pending';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{fullTitle}</title>
+  <meta name="description" content={description}>
+  <meta property="og:title" content={fullTitle}>
+  <meta property="og:description" content={description}>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B1D2A'/%3E%3Crect x='6' y='18' width='20' height='6' fill='%23F6E05E'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=Karla:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="site-head">
+      <a class="name" href="/">Ananya Chauhan</a>
+      <nav aria-label="Main">
+        <a href="/#work" aria-current={current === 'work' ? 'page' : undefined}>Work</a>
+        <a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a>
+        <a href={resumeHref} target={site.resume ? '_blank' : undefined} rel="noopener">Résumé</a>
+        <LinkedInIcon size={19} />
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-foot">
+      <span>Bay Area, California. All cases use fictional companies and synthetic data.</span>
+      <span class="foot-links">
+        <a href={`mailto:${site.email}`}>Email</a>
+        <a href={resumeHref} target={site.resume ? '_blank' : undefined} rel="noopener">Résumé</a>
+        {site.github && <a href={site.github}>GitHub</a>}
+        <LinkedInIcon size={20} />
+      </span>
+    </footer>
+  </div>
+</body>
+</html>

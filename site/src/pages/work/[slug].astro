@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Calculator from '../../components/Calculator.astro';
+import ControlMap from '../../components/ControlMap.astro';
+import { projects, renderMarkdown } from '../../lib/content.js';
+
+export function getStaticPaths() {
+  return projects.map((p, i) => ({ params: { slug: p.slug }, props: { p, i } }));
+}
+const { p, i } = Astro.props;
+const html = renderMarkdown(`${p.dir}/README.md`);
+let before = html, after = '';
+if (p.widget) {
+  const at = html.indexOf(p.widgetBefore);
+  if (at >= 0) { before = html.slice(0, at); after = html.slice(at); }
+}
+const extra = p.extra ? renderMarkdown(`${p.dir}/${p.extra}`, { demote: true }) : '';
+const next = projects[(i + 1) % projects.length];
+---
+<Base title={p.title} description={p.summary} current="work">
+  <article>
+    <header class="head">
+      <p class="kicker"><a href="/#work">Work</a> / {p.label}</p>
+      <h1>{p.title}{p.status && <span class="badge">{p.status}</span>}</h1>
+      <p class="sum">{p.summary}</p>
+      <p class="meta">October 2026. Independent work with fictional organizations and synthetic data; not legal advice.</p>
+      {p.files.length > 0 && (
+        <ul class="files">
+          {p.files.map(([f, label]) => <li><a href={`/files/${f}`} download>{label}</a></li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="prose" set:html={before} />
+    {p.widget === 'calculator' && <Calculator />}
+    {p.widget === 'map' && <ControlMap />}
+    {after && <div class="prose" set:html={after} />}
+
+    {extra && (
+      <section class="extra" id="sample-assessment">
+        <h2>{p.extraTitle}</h2>
+        <div class="prose" set:html={extra} />
+      </section>
+    )}
+  </article>
+
+  <a class="next" href={`/work/${next.slug}`}>
+    <span class="kicker">Next</span>
+    <span class="t">{next.title}</span>
+  </a>
+</Base>
+
+<style>
+  .head{padding:56px 0 36px;border-bottom:1px solid var(--rule);margin-bottom:36px}
+  .kicker a{text-decoration:none}.kicker a:hover{text-decoration:underline}
+  h1{font:500 clamp(36px,5.5vw,64px)/1.03 var(--serif);letter-spacing:-.02em;margin-top:12px;max-width:20ch}
+  h1 .badge{font-size:15px;margin-left:12px}
+  .sum{font-size:21px;line-height:1.5;color:var(--grey);margin-top:20px;max-width:56ch}
+  .meta{font:400 14px var(--sans);color:var(--grey);margin-top:18px}
+  .files{list-style:none;padding:0;margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+  .files a{display:inline-block;font:700 15px var(--sans);border:1px solid var(--ink);padding:7px 14px;text-decoration:none}
+  .files a:hover{background:var(--ink);color:#fff}
+  .extra{margin-top:64px;padding-top:32px;border-top:2px solid var(--ink)}
+  .extra > h2{font:500 36px/1.1 var(--serif);letter-spacing:-.015em;margin-bottom:20px}
+  .next{display:block;margin-top:72px;padding:28px 0;border-top:1px solid var(--rule);text-decoration:none}
+  .next .t{display:block;font:500 30px/1.2 var(--serif);margin-top:4px}
+  .next:hover .t{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
+</style>

@@ -1,0 +1,23 @@
+ID,Control objective,ISO 27001:2022,ISO/IEC 42001:2023,NIST AI RMF 1.0,EU AI Act,Coverage from existing ISMS,Notes
+AI-01,AI governance policy,5.1,5.2; A.2.2,GOVERN 1.2,Art. 17,Extend,"Policy framework and approval workflow carry over; content is new (acceptable and prohibited uses, AI risk appetite)."
+AI-02,Roles and accountability for AI,5.2,5.3; A.3.2,GOVERN 2.1,Art. 14; Art. 26(2),Extend,"Existing RACI extends to AI owners, model risk reviewers and oversight staff."
+AI-03,AI system inventory,5.9,4.3; A.4.2,GOVERN 1.6,Art. 49,Extend,"Asset inventory needs AI attributes: intended purpose, risk tier, model provider, data used."
+AI-04,Legal and regulatory requirements,5.31,4.1; 4.2,GOVERN 1.1,"Arts. 2, 5, 6",Extend,Register of obligations gains AI-specific laws and classification decisions.
+AI-05,AI risk assessment methodology,Clause 6.1.2,6.1.2,MAP 1–5; MEASURE 1.1,Art. 9,Extend,"Same risk method; new risk sources such as bias, misuse, opacity and model drift."
+AI-06,Impact assessment on individuals and society,— (5.34 partial),6.1.4; A.5.2–A.5.5,MAP 1.1; MAP 5.1,Art. 27,New,No ISMS equivalent; the privacy DPIA is the best starting point.
+AI-07,Training and input data quality and provenance,—,A.7.2–A.7.6,MAP 2.3; MAP 4.1,Art. 10,New,An ISMS protects data but never asks whether it is fit to learn from.
+AI-08,Bias and fairness evaluation,—,A.5.4; A.7.4,MEASURE 2.11,Art. 10(2)(f)–(g),New,Requires statistical testing and domain expertise outside security teams.
+AI-09,Pre-deployment validation,8.29,A.6.2.4,MEASURE 2.3,"Arts. 9, 15",Extend,Acceptance testing extends from functional and security tests to performance and robustness.
+AI-10,Secure AI development lifecycle,8.25; 8.28,A.6.1.3; A.6.2.2–A.6.2.3,MEASURE 2.7,Art. 15(5),Extend,"Secure SDLC gains AI threats: data poisoning, adversarial inputs, prompt injection."
+AI-11,Technical documentation,5.37,A.6.2.7,MAP 2.2,Art. 11; Annex IV,Extend,"Documentation discipline exists; required content (model design, data, limitations) is new."
+AI-12,Logging and record-keeping,8.15,A.6.2.8,MEASURE 2.8,Art. 12; Art. 26(6),Reuse,"Logging infrastructure reused; add model inputs, outputs and versions with retention of at least six months."
+AI-13,Human oversight of AI outputs,—,A.9.2; A.9.4,MAP 3.5; GOVERN 3.2,Art. 14; Art. 26(2),New,Designing when and how people can override the system has no ISMS analogue.
+AI-14,Transparency to users and affected persons,5.34 (partial),A.8.2; A.8.5,MEASURE 2.8; MEASURE 2.9,"Arts. 13, 50, 86; Art. 26(11)",Extend,Privacy notice process extends to AI disclosure and individual explanations.
+AI-15,Third-party AI suppliers,5.19–5.22,A.10.2; A.10.3,GOVERN 6.1; GOVERN 6.2; MANAGE 3.1,Art. 25; Art. 26(1),Extend,Supplier management extends with an AI supplement; see Project 01.
+AI-16,Post-deployment performance monitoring,8.16,A.6.2.6,MANAGE 4.1,Art. 72; Art. 26(5),Extend,"Security monitoring extends to accuracy, drift and outcome monitoring."
+AI-17,AI incident management,5.24–5.27,A.8.4,MANAGE 4.3,Art. 73; Art. 26(5),Extend,New incident types (harmful or biased outputs) and a new duty to report serious incidents.
+AI-18,Model change and decommissioning,8.32,A.6.2.5; A.6.2.6,GOVERN 1.7; MANAGE 2.4,Art. 43(4),Extend,Change management must treat model updates as material changes; substantial modification can trigger new conformity assessment.
+AI-19,AI competence and training,6.3,7.2; 7.3; A.4.6,GOVERN 2.2,Art. 26(2),Extend,Awareness program extends to AI risk; oversight staff need role-specific competence.
+AI-20,Internal audit and management review,Clauses 9.2; 9.3,9.2; 9.3,GOVERN 1.5,Art. 17,Reuse,Identical management-system clauses; extend audit scope to the AI management system.
+AI-21,"Access control for models, prompts and training data",5.15; 8.2; 8.3,— (ISMS),MEASURE 2.7,Art. 15(5),Reuse,"Existing access control applies; add models, prompts and datasets as protected assets."
+AI-22,Privacy in AI systems,5.34,A.7.2,MEASURE 2.10,Art. 10(5); GDPR,Extend,"Privacy controls extend to training data, inference outputs and special-category data used for bias testing."

@@ -1,0 +1,80 @@
+---
+// Vendor tiering calculator: the triage model from Project 01, preset to the Orrery case.
+const factors = [
+  ['Data sensitivity', ['Public or internal', 'Confidential business data', 'Personal, health or financial']],
+  ['Decision impact', ['Productivity aid only', 'Internal business decisions', 'Decisions about people']],
+  ['Autonomy', ['Suggests; a human acts', 'Human approves AI drafts', 'Acts without review']],
+  ['Integration depth', ['Standalone', 'Reads our systems', 'Writes or uses tools']],
+  ['Regulatory exposure', ['None identified', 'Sector rules apply', 'EU AI Act high-risk']],
+];
+---
+<form class="calc" id="calc" aria-labelledby="calc-title">
+  <div class="calc-head">
+    <h3 id="calc-title">Try it: tier a vendor</h3>
+    <button type="button" id="calc-reset">Reset to Orrery</button>
+  </div>
+  <p class="hint">Preset to Orrery Talent. Change any factor to see how the tier and assessment depth respond.</p>
+  {factors.map(([name, opts], i) => (
+    <fieldset>
+      <legend>{name}</legend>
+      <div class="seg">
+        {opts.map((o, j) => (
+          <label><input type="radio" name={`f${i}`} value={j + 1} checked={j === 2} />{o}</label>
+        ))}
+      </div>
+    </fieldset>
+  ))}
+  <div class="result" id="calc-result" aria-live="polite">
+    <span class="score"><span id="calc-total">15</span><small> of 15</small></span>
+    <span class="tier" id="calc-tier">High tier</span>
+    <span class="depth" id="calc-depth"></span>
+  </div>
+</form>
+
+<style>
+  .calc{border:2px solid var(--ink);padding:24px 26px;margin:2em 0;max-width:70ch;font-family:var(--sans)}
+  .calc-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  h3{font:700 19px var(--sans);margin:0}
+  .hint{font-size:15px;color:var(--grey);margin-top:4px}
+  fieldset{border:0;padding:0;margin:18px 0 0;min-width:0}
+  legend{font-size:15px;font-weight:700;margin-bottom:6px}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink)}
+  label{position:relative;font-size:14px;line-height:1.3;padding:9px 10px;cursor:pointer;color:var(--grey);border-left:1px solid var(--ink)}
+  label:first-child{border-left:0}
+  input{position:absolute;opacity:0;pointer-events:none}
+  label:has(input:checked){background:var(--ink);color:#fff}
+  label:has(input:focus-visible){outline:3px solid var(--mark);outline-offset:-3px}
+  .result{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:2px 20px;align-items:center;padding:16px 18px;background:var(--tint)}
+  .score{grid-row:span 2;font:700 40px/1 var(--serif)}
+  .score small{font:400 15px var(--sans);color:var(--grey)}
+  .tier{font-weight:700;font-size:18px}
+  .depth{font-size:15px;color:var(--grey)}
+  .result[data-tier=High] .tier{color:var(--red)}
+  .result[data-tier=High]{background:#FBE9E6}
+  .result[data-tier=Medium]{background:#FBF3D5}
+  .result[data-tier=Low] .tier{color:var(--pass)}
+  .result[data-tier=Low]{background:#E6F2EA}
+  button{font:600 14px var(--sans);background:none;border:1px solid var(--ink);padding:5px 12px;cursor:pointer;color:var(--ink)}
+  button:hover{background:var(--ink);color:#fff}
+  @media (max-width:520px){.calc{padding:18px}label{font-size:12.5px;padding:8px 6px}.calc-head{flex-wrap:wrap}}
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('calc');
+    if (!form) return;
+    const depth = { Low: '8 core questions, self-attested.', Medium: 'Full 32-question review, evidence sampled.', High: 'Full review, all evidence checked, AI contract clauses, annual reassessment.' };
+    const update = () => {
+      let t = 0;
+      for (let i = 0; i < 5; i++) t += +form.querySelector(`input[name=f${i}]:checked`).value;
+      const tier = t <= 7 ? 'Low' : t <= 11 ? 'Medium' : 'High';
+      document.getElementById('calc-total').textContent = t;
+      document.getElementById('calc-tier').textContent = tier + ' tier';
+      document.getElementById('calc-depth').textContent = depth[tier];
+      document.getElementById('calc-result').dataset.tier = tier;
+    };
+    form.addEventListener('change', update);
+    document.getElementById('calc-reset').onclick = () => { form.querySelectorAll('input[value="3"]').forEach((r) => (r.checked = true)); update(); };
+    update();
+  })();
+</script>

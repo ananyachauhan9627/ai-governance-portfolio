@@ -1,0 +1,72 @@
+---
+import { crosswalk } from '../lib/content.js';
+const data = crosswalk();
+const count = (c) => data.filter((r) => r.c === c).length;
+---
+<section class="map" aria-labelledby="map-title">
+  <div class="map-head">
+    <h3 id="map-title">Explore the map</h3>
+    <div class="filters" role="group" aria-label="Filter by coverage">
+      <button type="button" aria-pressed="true" data-f="All">All 22</button>
+      <button type="button" aria-pressed="false" data-f="Reuse"><i class="sw reuse"></i>Reuse {count('Reuse')}</button>
+      <button type="button" aria-pressed="false" data-f="Extend"><i class="sw extend"></i>Extend {count('Extend')}</button>
+      <button type="button" aria-pressed="false" data-f="New"><i class="sw new"></i>New {count('New')}</button>
+    </div>
+  </div>
+  <p class="hint">Select a control to see where it sits in each framework.</p>
+  <div class="grid" id="map-grid">
+    {data.map((r) => (
+      <button type="button" class="tile" data-c={r.c} data-id={r.id} aria-pressed="false" aria-label={`${r.id} ${r.name}, ${r.c}`}>
+        {r.id.replace('AI-', '')}<span>{r.name}</span>
+      </button>
+    ))}
+  </div>
+  <div class="detail" id="map-detail" aria-live="polite"></div>
+</section>
+
+<style>
+  .map{border:2px solid var(--ink);padding:24px 26px;margin:2em 0;font-family:var(--sans)}
+  .map-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  h3{font:700 19px var(--sans);margin:0}
+  .hint{font-size:15px;color:var(--grey);margin-top:4px}
+  .filters{display:flex;gap:6px;flex-wrap:wrap}
+  .filters button{font:600 14px var(--sans);color:var(--ink);background:none;border:1px solid var(--rule);padding:4px 11px;cursor:pointer;display:flex;align-items:center;gap:7px}
+  .filters button[aria-pressed=true]{border-color:var(--ink);background:var(--tint)}
+  .sw{width:11px;height:11px;display:inline-block;border:1px solid rgba(27,29,42,.25)}
+  .sw.reuse{background:var(--reuse)} .sw.extend{background:var(--extend)} .sw.new{background:var(--new)}
+  .grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:6px;margin-top:18px}
+  .tile{aspect-ratio:1/1.1;border:0;cursor:pointer;font:700 13px var(--sans);color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:7px;text-align:left;transition:opacity .2s}
+  .tile span{font-weight:400;font-size:11px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .tile[data-c=Reuse]{background:var(--reuse)} .tile[data-c=Extend]{background:var(--extend)} .tile[data-c=New]{background:var(--new)}
+  .tile.dim{opacity:.2}
+  .tile[aria-pressed=true]{outline:3px solid var(--ink);outline-offset:2px}
+  .detail{margin-top:20px;border-top:1px solid var(--rule);padding-top:18px;display:grid;grid-template-columns:1fr 1.4fr;gap:28px;min-height:170px}
+  :global(.detail .cov){display:inline-block;font:700 13px var(--sans);padding:1px 8px;margin-bottom:6px}
+  :global(.detail h4){font:500 24px/1.2 var(--serif)}
+  :global(.detail p){color:var(--grey);margin-top:8px;font:400 16px/1.5 var(--serif)}
+  :global(.detail dl){display:grid;grid-template-columns:8.5rem 1fr;gap:6px 14px;font-size:15px;align-content:start}
+  :global(.detail dt){color:var(--grey)}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(6,minmax(0,1fr))}.detail{grid-template-columns:1fr;gap:14px}}
+  @media (max-width:520px){.map{padding:18px}.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.tile{aspect-ratio:1}.tile span{display:none}:global(.detail dl){grid-template-columns:1fr}}
+</style>
+
+<script is:inline define:vars={{ data }}>
+  (() => {
+    const grid = document.getElementById('map-grid'), detail = document.getElementById('map-detail');
+    const bg = { Reuse: 'var(--reuse)', Extend: 'var(--extend)', New: 'var(--new)' };
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const show = (r) => {
+      detail.innerHTML = `<div><span class="cov" style="background:${bg[r.c]}">${r.c}</span><h4>${esc(r.name)}</h4><p>${esc(r.note)}</p></div>
+        <dl><dt>ISO 27001:2022</dt><dd>${esc(r.iso27)}</dd><dt>ISO/IEC 42001</dt><dd>${esc(r.iso42)}</dd><dt>NIST AI RMF</dt><dd>${esc(r.nist)}</dd><dt>EU AI Act</dt><dd>${esc(r.eu)}</dd></dl>`;
+      grid.querySelectorAll('.tile').forEach((t) => t.setAttribute('aria-pressed', t.dataset.id === r.id));
+    };
+    grid.querySelectorAll('.tile').forEach((t) => (t.onclick = () => show(data.find((r) => r.id === t.dataset.id))));
+    document.querySelectorAll('.filters button').forEach((btn) => (btn.onclick = () => {
+      document.querySelectorAll('.filters button').forEach((x) => x.setAttribute('aria-pressed', x === btn));
+      const f = btn.dataset.f;
+      grid.querySelectorAll('.tile').forEach((t) => t.classList.toggle('dim', f !== 'All' && t.dataset.c !== f));
+      show(data.find((r) => (f === 'All' ? r.id === 'AI-08' : r.c === f)));
+    }));
+    show(data.find((r) => r.id === 'AI-08'));
+  })();
+</script>
