@@ -8,9 +8,11 @@ const findings = [
   ['High', 'Bias was ', 'tested once, on US applicants only', '.'],
   ['High', 'The bottom 40% are ', 'rejected automatically', ', without a recruiter looking.'],
 ];
+import { site } from '../lib/site.js';
 ---
 <Base description="Third-party risk and GRC professional assessing the AI that companies buy. Case studies in AI vendor risk, the EU AI Act and AI governance frameworks.">
   <section class="hero">
+    <p class="intro"><b>Third-party risk &amp; AI governance.</b> Ex-KPMG Senior Consultant, top 5%. Open to TPRM, IT risk and AI governance roles in the Bay Area or remote. {site.workAuth}</p>
     <p class="kicker">A fictional case from my portfolio</p>
     <h1>Passed SOC 2. Failed the AI review.</h1>
     <p class="setup">Northwind Logistics wants to use Orrery Talent to rank job candidates in the US and Europe. Orrery has every certificate a vendor review asks for. Here is what the standard review saw, and what an AI review found.</p>
@@ -69,7 +71,9 @@ const findings = [
 </Base>
 
 <style>
-  .hero{padding:72px 0 40px}
+  .hero{padding:44px 0 40px}
+  .intro{font:400 17px/1.5 var(--sans);color:var(--grey);max-width:62ch;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--rule)}
+  .intro b{color:var(--ink)}
   h1{font:500 clamp(44px,7.2vw,96px)/.98 var(--serif);letter-spacing:-.025em;margin-top:14px;max-width:14ch}
   .setup{font-size:21px;line-height:1.5;color:var(--grey);margin-top:28px;max-width:52ch}
   .reviews{display:grid;grid-template-columns:1fr 1.4fr;margin-top:48px;border-top:2px solid var(--ink)}

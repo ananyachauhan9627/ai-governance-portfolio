@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../lib/site.js';
 const jobs = [
-  { org: 'KPMG', role: 'Senior Consultant, Risk & Cyber Advisory', when: '2022–2024', where: 'Bengaluru',
+  { org: 'KPMG', role: 'Senior Consultant, Risk & Cyber Advisory', when: 'Jan 2022 – Mar 2024', where: 'Bengaluru',
     points: [
       'Assessed more than 200 third-party vendors across financial services, technology and manufacturing clients, and drove remediation against ISO/IEC 27001 and NIST 800-53.',
       'Designed TPRM frameworks (vendor tiering, due diligence questionnaires, continuous monitoring) adopted as standard practice across engagements.',
@@ -10,10 +10,11 @@ const jobs = [
       'Led SOC 2 third-party assurance and continuous monitoring for a venture capital client; executed ITGC tests of design and effectiveness.',
       'Rated distinctive, in the top 5% of consultants.',
     ] },
-  { org: 'EY', role: 'Technology Consulting Intern', when: '2021', where: 'Gurugram',
-    points: ['Implemented a privacy information management system for a verification services client, extending ISO/IEC 27001 and 27002 with ISO/IEC 27701 privacy controls and benchmarking against GDPR.'] },
-  { org: 'Infosys', role: 'Senior Operations Executive', when: '2017–2020', where: 'Pune',
-    points: ['Managed cross-functional delivery and escalations with onsite and third-party teams for an Australian telecom client; redesigned task allocation to double per-analyst throughput.'] },
+  { org: 'EY', role: 'Technology Consulting Intern', when: 'Jun – Aug 2021', where: 'Gurugram',
+    points: ['Implemented a Privacy Information Management System (PIMS) for a verification services client, extending ISO/IEC 27001 and 27002 with ISO/IEC 27701 privacy controls; mapped privacy gaps and benchmarked policies against GDPR.'] },
+  { org: 'Infosys', role: 'Senior Operations Executive', when: 'Dec 2017 – Jun 2020', where: 'Pune',
+    points: ['Managed Tier-3 escalations and cross-functional delivery with onsite and third-party teams for an Australian telecom network rollout, resolving configuration faults within a 2-hour SLA.',
+      'As Workforce Manager, moved the team to dedicated project ownership, doubling per-analyst throughput (5 to 10 a day) and cutting delivery delays by about 20%.'] },
 ];
 ---
 <Base title="About" description="Experience, certifications and education of Ananya Chauhan, GRC and third-party risk professional." current="about">
@@ -24,8 +25,8 @@ const jobs = [
     </div>
     <div class="lede">
       <p>I’m a GRC professional with four and a half years across risk advisory and technology operations, most recently more than two years in third-party risk at KPMG. I’m extending that practice to AI governance: assessing AI vendors, classifying systems under the EU AI Act, and mapping how existing security programs carry over.</p>
-      <p>I’m looking for roles in third-party risk, IT risk and compliance, and AI governance, in the Bay Area or remote.</p>
-      <p class="links"><a href="mailto:ananyachauhan.9627@gmail.com">Email me</a><a href="https://www.linkedin.com/in/ananyachauhan-grc">LinkedIn</a><a href={site.resume || "#resume-link-pending"} target={site.resume ? "_blank" : undefined} rel="noopener">Résumé</a></p>
+      <p>I’m looking for roles in third-party risk, IT risk and compliance, and AI governance, in the Bay Area or remote. {site.workAuth}</p>
+      <p class="links"><a href={`mailto:${site.email}`}>Email me</a><a href={site.linkedin}>LinkedIn</a><a href={site.resume || "#resume-link-pending"} target={site.resume ? "_blank" : undefined} rel="noopener">Résumé</a></p>
     </div>
   </section>
 
@@ -48,7 +49,7 @@ const jobs = [
   <section class="block">
     <h2 class="section-label">Education</h2>
     <dl>
-      <dt>San Francisco State University</dt><dd>Graduate Certificate in Ethical Artificial Intelligence, 2025 to present. AI risk management, responsible AI, EU AI Act, NIST AI RMF.</dd>
+      <dt>San Francisco State University</dt><dd>Graduate Certificate in Ethical Artificial Intelligence, 2025 to present. Generative AI and LLMs, agentic AI, machine learning and deep learning, explainable AI, trustworthy AI and AI regulation (EU AI Act, NIST AI RMF).</dd>
       <dt>Symbiosis Centre for Information Technology</dt><dd>MBA, Information Security and Business Management, 2022</dd>
       <dt>Banasthali Vidyapith</dt><dd>B.Sc. Mathematics, minors in Computer Science and Statistics, 2017</dd>
     </dl>
@@ -66,8 +67,9 @@ const jobs = [
     <h2 class="section-label">Frameworks and tools</h2>
     <dl>
       <dt>Security and privacy</dt><dd>ISO/IEC 27001, 27002, 27701; NIST CSF; NIST 800-53; SOC 1 and SOC 2; PCI DSS; GDPR; CCPA</dd>
-      <dt>AI governance</dt><dd>EU AI Act; NIST AI RMF; ISO/IEC 42001</dd>
-      <dt>Platforms</dt><dd>ServiceNow GRC; OneTrust; Microsoft Sentinel; Power BI</dd>
+      <dt>AI governance</dt><dd>EU AI Act; NIST AI RMF; ISO/IEC 42001; AI risk management; AI trustworthiness audits; algorithmic bias and fairness</dd>
+      <dt>AI technologies</dt><dd>Generative AI and LLMs; agentic AI; retrieval-augmented generation (RAG); prompt engineering; explainable AI (LIME, SHAP); GenAI benchmarking; machine learning (Random Forest); Python and scikit-learn</dd>
+      <dt>Platforms</dt><dd>ServiceNow GRC; OneTrust; Microsoft Sentinel (SIEM); Power BI</dd>
     </dl>
   </section>
 
@@ -90,7 +92,7 @@ const jobs = [
   .links a{font:700 16px var(--sans);color:var(--ink);margin-right:20px;text-underline-offset:5px}
   .block{display:grid;grid-template-columns:1fr 2.3fr;gap:40px;padding:40px 0;border-top:1px solid var(--rule)}
   .jobs{list-style:none;padding:0}
-  .jobs > li{display:grid;grid-template-columns:7rem 1fr;gap:24px;padding-bottom:28px}
+  .jobs > li{display:grid;grid-template-columns:9.5rem 1fr;gap:24px;padding-bottom:28px}
   .jobs > li + li{padding-top:28px;border-top:1px solid var(--rule)}
   .when{font:400 15px/1.5 var(--sans);color:var(--grey)}
   h3{font:500 26px/1.2 var(--serif)}
